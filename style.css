@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    background-image: url("https://media.istockphoto.com/id/1139914566/vector/pixel-art-night-starry-sky.jpg?s=612x612&w=0&k=20&c=mmZXai_adAprJAIGc5DZPTK3Hk9oze6X4fwf4MvI4Gw="); 
+}
+* {
+    box-sizing: border-box;
+    font-family: Bungee, sans-serif;
+    color: rgb(255, 8, 8);
+}
+td{
+    height: 50px;
+    width: 50px;
+    background-color: lightgray;
+    border-radius: 300%;
+}
+#gameBoard{
+    display: flex;
+    flex-wrap: wrap;
+    height: 600px;
+    width: 675px;
+    background-color: rgb(7, 7, 95);
+    border: 10px solid indigo;
+    margin: 50px;
+}
+.coin-slot{
+    height: 80px;
+    width: 80px;
+    margin: 6px;
+    background-color: grey;
+    border-radius: 100%;
+    border: solid rgb(177, 177, 177);
+}
+.player1{
+    background-color: red;
+}
+.player2{
+    background-color: yellow;
+}
