@@ -55,6 +55,8 @@ function gamePiece(){
     }
     indexRow -= 1;
     columnCheck[indexColumns] = indexRow;
+
+    winnerWinner();
 } 
 
 
@@ -84,22 +86,26 @@ function aiPlayerMove(){
 
 function winnerWinner(){
     for( let indexRow = 0; indexRow < boardRows - 3; indexRow++){
-        if (board[indexRow][indexColumns] != ' '){
-            if (board[indexRow][indexColumns] == board[indexRow + 1][indexColumns] && board[indexRow + 1][indexColumns] == 
-                board[indexRow + 2][indexColumns] && board[indexRow + 2][indexColumns] == board[indexRow + 3][indexColumns]) {
-                    chickenDinner(indexRow,indexColumns);
-                    console.log("Horizontal win")
-                    return;
+        for( let indexColumns = 0; indexColumns < boardColumns; indexColumns++){
+            if (board[indexRow][indexColumns] != ' '){
+                if (board[indexRow][indexColumns] == board[indexRow + 1][indexColumns] && board[indexRow + 1][indexColumns] == 
+                    board[indexRow + 2][indexColumns] && board[indexRow + 2][indexColumns] == board[indexRow + 3][indexColumns]) {
+                        chickenDinner(indexRow,indexColumns);
+                        console.log("Horizontal win")
+                        return;
+                }
             }
         }
     }
-    for( let indexColumns = 0; indexColumns < boardColumns - 3; indexColumns++){
-        if (board[indexRow][indexColumns] != ' '){
-            if (board[indexRow][indexColumns] == board[indexRow][indexColumns + 1] && board[indexRow][indexColumns + 1] == 
-                board[indexRow][indexColumns + 2] && board[indexRow][indexColumns + 2] == board[indexRow][indexColumns + 3]) {
-                    chickenDinner(indexRow,indexColumns);
-                    console.log("Vertical win")
-                    return;
+    for( let indexRow = 0; indexRow < boardRows; indexRow++){
+        for( let indexColumns = 0; indexColumns < boardColumns - 3; indexColumns++){
+            if (board[indexRow][indexColumns] != ' '){
+                if (board[indexRow][indexColumns] == board[indexRow][indexColumns + 1] && board[indexRow][indexColumns + 1] == 
+                    board[indexRow][indexColumns + 2] && board[indexRow][indexColumns + 2] == board[indexRow][indexColumns + 3]) {
+                        chickenDinner(indexRow,indexColumns);
+                        console.log("Vertical win")
+                        return;
+                }
             }
         }
     }
