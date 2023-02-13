@@ -1,12 +1,12 @@
 const player1 = "red";
 const player2 = "yellow";
-const aiPlayer = "aiplayer"
+// const aiPlayer = "aiplayer"
 let currentPlayer = "player1";
 let gameOver = false;
 let columnTarget = [5,5,5,5,5,5,5]
 const boardRows = 6;
 const boardColumns = 7;
-let board;
+let board = [];
 let restartButton = document.getElementsByClassName("restart-button")[0];
 
 
@@ -18,16 +18,24 @@ function restartGame(){
 }
 restartButton.addEventListener("click", restartGame)
 
+
+// // Choosing a different game mode
+// function singlePlayer(event) {
+//     currentPlayer = event.target.value;
+//     console.log(event.target.value);
+// }
+// selectGamemode.addEventListener("change", singlePlayer);
+
+
 // Loading the game board
 function boardLoad() {
-    board = [];
     console.log("Starting board generation.")
         for (let indexRow = 0; indexRow < boardRows; indexRow++) {
             let row = [];
             for (let indexColumns = 0; indexColumns < boardColumns; indexColumns++) {
             row.push(" ");
             let coinSlot = document.createElement("div");
-            coinSlot.id = indexRow.toString() + "-" + indexColumns.toString();
+            coinSlot.id = indexRow + "-" + indexColumns;
             coinSlot.classList.add("coin-slot");
             coinSlot.addEventListener("click", gamePiece);
             document.getElementById("gameBoard").append(coinSlot);
@@ -41,15 +49,14 @@ window.addEventListener("load", boardLoad);
 // Putting the pieces together....
 function gamePiece() {
     if (gameOver) return;
-
     let location = this.id.split("-");
-    let indexRow = parseInt(location[0]);
-    let indexColumns = parseInt(location[1]);
+    let indexRow = location[0];
+    let indexColumns = location[1];
 
     indexRow = columnTarget[indexColumns];
     if (indexRow < 0) return;
     board[indexRow][indexColumns] = currentPlayer;
-    let coinSlot = document.getElementById(indexRow.toString() + "-" + indexColumns.toString());
+    let coinSlot = document.getElementById(indexRow + "-" + indexColumns);
 
     if (currentPlayer == player1) {
         coinSlot.classList.add("player1");
@@ -62,20 +69,13 @@ function gamePiece() {
     indexRow -= 1;
     columnTarget[indexColumns] = indexRow;
 
-    winnerWinner();
+    winnerVertHor();
+    winnerDiagonal();
 } 
-
-
-// Choosing a different game mode
-function singlePlayer(event) {
-    currentPlayer = event.target.value;
-    console.log(event.target.value);
-}
-selectGamemode.addEventListener("change", singlePlayer);
 
 // Winner Winner!
 
-function winnerWinner() {
+function winnerVertHor() {
     for( let indexRow = 0; indexRow < boardRows - 3; indexRow++) {
         for( let indexColumns = 0; indexColumns < boardColumns; indexColumns++) {
             if (board[indexRow][indexColumns] != ' ') {
@@ -100,8 +100,12 @@ function winnerWinner() {
             }
         }
     }
+}
+
+
+function winnerDiagonal() {
     for( let indexRow = 0; indexRow < boardRows - 3; indexRow++) {
-        for( let indexColumns = 0; indexColumns < boardColumns - 3; indexColumns++) {
+        for( let indexColumns = - 3; indexColumns < boardColumns - 3; indexColumns++) {
             if (board[indexRow][indexColumns] != ' ') {
                 if (board[indexRow][indexColumns] == board[indexRow + 1][indexColumns + 1] && board[indexRow + 1][indexColumns + 1] == 
                     board[indexRow + 2][indexColumns + 2] && board[indexRow + 2][indexColumns + 2] == board[indexRow + 3][indexColumns + 3]) {
@@ -128,9 +132,9 @@ function winnerWinner() {
 
 function chickenDinner(indexRow,indexColumns) {
     if (board[indexRow][indexColumns] == player1) {
-        alert("Congrats, Player 1 wins!!!");
+        alert("Congrats, Player 1 wins!!! Please restart");
     } else {
-        alert("Congrats, Player 2 wins!!!");
+        alert("Congrats, Player 2 wins!!! Please restart");
     }
     gameOver = true;
     return;
