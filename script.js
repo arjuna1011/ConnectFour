@@ -39,6 +39,21 @@ window.addEventListener("load", boardLoad);
 // Putting the pieces together....
 function gamePiece() {
     if (gameOver) return;
+
+    // check if all spaces on board are full
+    let isFull = true;
+    for (let i = 0; i < columnTarget.length; i++) {
+        if (columnTarget[i] >= 0) {
+            isFull = false;
+            break;
+        }
+    }
+    if (isFull) {
+        alert("The game is a tie! Please restart.");
+        gameOver = true;
+        return;
+    }
+
     let location = this.id.split("-");
     let indexRow = location[0];
     let indexColumns = location[1];
@@ -59,23 +74,10 @@ function gamePiece() {
     indexRow -= 1;
     columnTarget[indexColumns] = indexRow;
 
-    // check if all spaces on board are full
-    let isFull = true;
-    for (let i = 0; i < columnTarget.length; i++) {
-        if (columnTarget[i] >= 0) {
-            isFull = false;
-            break;
-        }
-    }
-    if (isFull) {
-        alert("The game is a tie! Please restart.");
-        gameOver = true;
-        return;
-    }
-
     winnerVertHor();
     winnerDiagonal();
 }
+
 
 
 // Winner Winner!
