@@ -59,9 +59,24 @@ function gamePiece() {
     indexRow -= 1;
     columnTarget[indexColumns] = indexRow;
 
+    // check if all spaces on board are full
+    let isFull = true;
+    for (let i = 0; i < columnTarget.length; i++) {
+        if (columnTarget[i] >= 0) {
+            isFull = false;
+            break;
+        }
+    }
+    if (isFull) {
+        alert("The game is a tie! Please restart.");
+        gameOver = true;
+        return;
+    }
+
     winnerVertHor();
     winnerDiagonal();
-} 
+}
+
 
 // Winner Winner!
 
