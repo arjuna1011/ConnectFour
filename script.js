@@ -1,7 +1,6 @@
 const player1 = "red";
 const player2 = "yellow";
-// const aiPlayer = "aiplayer"
-let currentPlayer = "player1";
+let currentPlayer = player1;
 let gameOver = false;
 let columnTarget = [5,5,5,5,5,5,5]
 const boardRows = 6;
@@ -17,15 +16,6 @@ function restartGame(){
     console.log("restarting...")
 }
 restartButton.addEventListener("click", restartGame)
-
-
-// // Choosing a different game mode
-// function singlePlayer(event) {
-//     currentPlayer = event.target.value;
-//     console.log(event.target.value);
-// }
-// selectGamemode.addEventListener("change", singlePlayer);
-
 
 // Loading the game board
 function boardLoad() {
